@@ -1,0 +1,258 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: url('https://images.pexels.com/photos/1695738/pexels-photo-1695738.jpeg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 30px 25px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-shape {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px;
+  border-radius: 30px;
+  border: 2px solid #5a60ea;
+  display: flex;
+  gap: 5px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #5a60ea;
+  transition: 0.3s ease;
+}
+
+.tab-btn.active {
+  background-color: #5a60ea;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.form-tab {
+  display: none;
+}
+
+.form-tab.active {
+  display: block;
+  animation: slideIn 0.5s ease;
+}
+
+label {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+  color: #e6e6ff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 2px solid #8f9eff;
+  background: rgba(255, 255, 255, 0.9);
+  transition: 0.3s;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #5a60ea;
+  background: #e0e4ff;
+}
+
+.password-row {
+  position: relative;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #8f9eff;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #e6e6ff;
+}
+
+.checkbox-line {
+  margin-top: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #c7cbff;
+  transition: .4s;
+  border-radius: 22px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+.switch input:checked + .slider {
+  background-color: #5a60ea;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #5a60ea;
+  border-radius: 12px;
+  background: #5a60ea;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-btn:hover {
+  background: #4c52d0;
+}
+
+.mobile-input {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 2px solid #8f9eff;
+  overflow: hidden;
+}
+
+.mobile-input .prefix {
+  padding: 12px;
+  background-color: #e0e4ff;
+  color: #5a60ea;
+  font-weight: 600;
+  border-right: 2px solid #8f9eff;
+}
+
+.mobile-input input {
+  border: none;
+  flex: 1;
+  padding: 12px 10px;
+  outline: none;
+  background: transparent;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 0.8s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-height: 600px), (max-width: 480px) {
+  .bg {
+    padding: 80px 15px;
+    align-items: flex-start;
+  }
+
+  .auth-card {
+    margin: 30px 0;
+  }
+}
