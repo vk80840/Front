@@ -115,6 +115,17 @@ document.getElementById("signin").addEventListener("submit", async function(e) {
   }
 });
 </script>
-  
+  <script>
+function showTab(tabId, btn) {
+  // Hide all forms
+  document.querySelectorAll('.form-tab').forEach(form => form.classList.remove('active'));
+  // Remove active class from all tab buttons
+  document.querySelectorAll('.tab-btn').forEach(tab => tab.classList.remove('active'));
+
+  // Show selected form and activate the button
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+  </script>
 </body>
 </html>
