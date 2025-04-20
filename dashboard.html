@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEERAJ - CRM Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Background shapes for modern look -->
+    <div class="background-shapes"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fa-solid fa-business-time"></i> NEERAJ 
+        <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <hr class="glow-line">
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item" onclick="openTab('dashboard')">
+            <i class="fa-solid fa-gauge-high"></i> Dashboard
+          </li>
+          <li class="nav-item" onclick="openTab('deposit')">
+            <i class="fa-solid fa-money-bill-transfer"></i> Deposit
+          </li>
+          <li class="nav-item" onclick="openTab('withdraw')">
+            <i class="fa-solid fa-money-bill-wave"></i> Withdraw
+          </li>
+          <li class="nav-item" onclick="openTab('profile')">
+            <i class="fa-solid fa-user"></i> Profile
+          </li>
+          <li class="nav-item" onclick="openTab('team')">
+            <i class="fa-solid fa-users"></i> Team
+          </li>
+          <li class="nav-item" onclick="openTab('tree')">
+            <i class="fa-solid fa-sitemap"></i> Tree View
+          </li>
+          <li class="nav-item" onclick="openTab('income')">
+            <i class="fa-solid fa-chart-line"></i> Income
+          </li>
+          <li class="nav-item" onclick="openTab('support')">
+            <i class="fa-solid fa-headset"></i> Support
+          </li>
+        </ul>
+      </nav>
+      <div class="logout">
+        <button onclick="logout()"><i class="fa-solid fa-power-off"></i> Logout</button>
+      </div>
+    </aside>
+
+    <script>
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "index.html"; // redirect to login if not logged in
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "index.html";
+    }
+  </script>
+    
+    <!-- Main Content -->
+    <main>
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header-left">
+          <button id="toggleSidebar" class="toggle-button">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="header-center">
+          <i class="fa-solid fa-business-time logo-icon"></i>
+          <span class="site-name">NEERAJ</span>
+        </div>
+
+        <div class="header-right">
+          <div class="profile-container">
+            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Profile" class="profile-button" id="profileButton">
+            <div class="dropdown-menu" id="dropdownMenu">
+              <button onclick="openTab('profile')"><i class="fa-solid fa-user"></i> My Profile</button>
+              <button onclick="openTab('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+              <button onclick="logout()" ><i class="fa-solid fa-power-off"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="tab-section">
+        <div class="dashboard">
+          <div class="box profile-box">
+            <h3><i class="fa-solid fa-user-circle"></i> Profile</h3>
+            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Profile Photo" class="profile-pic">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Account Type:</strong> Premium</p>
+            <p><strong>Total Active Direct:</strong> 12</p>
+            <p><strong>Total Team Business:</strong> $45,000</p>
+          </div>
+
+          <div class="box gain-box">
+            <h3><i class="fa-solid fa-chart-pie"></i> Total Gain</h3>
+            <p><strong>Current Investment:</strong> $1,000</p>
+            <p><strong>Principal Amount:</strong> $500</p>
+            <p><strong>Profit Sharing:</strong> $200</p>
+            <p><strong>Level Growth Income:</strong> $150</p>
+            <p><strong>Gift Referral Income:</strong> $100</p>
+            <p><strong>SIP:</strong> $75</p>
+            <p><strong>GIP Income:</strong> $50</p>
+            <p><strong>Reward Income:</strong> $30</p>
+            <p><strong>Total Profit:</strong> $1,105</p>
+            <div class="pending-balance">
+              <strong>Pending Wallet:</strong> $200 
+              <button id="viewTransDetails"><i class="fa-solid fa-file-invoice"></i> View Details</button>
+            </div>
+          </div>
+
+          <div class="box balance-box">
+            <h3><i class="fa-solid fa-wallet"></i> Wallet</h3>
+            <p><strong>Top-Up Balance:</strong> $300</p>
+            <p><strong>Withdrawable Balance:</strong> $150</p>
+            <div class="wallet-buttons">
+              <button class="btn-green" onclick="openTab('deposit')"><i class="fa-solid fa-plus-circle"></i> Top-Up</button>
+              <button class="btn-blue" onclick="openTab('withdraw')"><i class="fa-solid fa-minus-circle"></i> Withdraw</button>
+            </div>
+          </div>
+
+          <div class="box referral-box">
+            <h3><i class="fa-solid fa-share-nodes"></i> Referral System</h3>
+            <p>Share your referral link:</p>
+            <div class="referral-link-container">
+              <input type="text" value="https://example.com/ref123" id="refLink" readonly>
+              <button onclick="copyReferral()"><i class="fa-solid fa-copy"></i> Copy</button>
+            </div>
+          </div>
+
+          <div class="box nav-shortcuts">
+            <h3><i class="fa-solid fa-compass"></i> Quick Navigation</h3>
+            <div class="nav-links">
+              <button onclick="openTab('dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</button>
+              <button onclick="openTab('deposit')"><i class="fa-solid fa-money-bill-transfer"></i> Deposit</button>
+              <button onclick="openTab('withdraw')"><i class="fa-solid fa-money-bill-wave"></i> Withdraw</button>
+              <button onclick="openTab('profile')"><i class="fa-solid fa-user"></i> Profile</button>
+              <button onclick="openTab('team')"><i class="fa-solid fa-users"></i> Team</button>
+              <button onclick="openTab('tree')"><i class="fa-solid fa-sitemap"></i> Tree View</button>
+              <button onclick="openTab('income')"><i class="fa-solid fa-chart-line"></i> Income</button>
+              <button onclick="openTab('support')"><i class="fa-solid fa-headset"></i> Support</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Transaction Details Modal -->
+        <div id="transactionModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2><i class="fa-solid fa-file-invoice"></i> Transaction Details</h2>
+              <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2023-06-15</td>
+                    <td>Referral Income</td>
+                    <td>$50.00</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td>From user ID: REF123</td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-12</td>
+                    <td>Level Income</td>
+                    <td>$75.00</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td>Level 2 commission</td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-10</td>
+                    <td>Reward Income</td>
+                    <td>$25.00</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td>Monthly performance bonus</td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-05</td>
+                    <td>Profit Sharing</td>
+                    <td>$50.00</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td>Investment profit share</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deposit Section -->
+      <section id="deposit" class="tab-section" style="display: none;">
+        <div class="deposit-container">
+          <h3 class="section-title"><i class="fa-solid fa-money-bill-transfer"></i> Deposit Funds</h3>
+          
+          <!-- QR Code Box -->
+          <div class="qr-container">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=neeraj_wallet_address_123abc" alt="Deposit QR" class="qr-image">
+          </div>
+
+          <!-- Crypto Address Box with Copy Button -->
+          <div class="copyable-address">
+            <input type="text" value="neeraj_wallet_address_123abc" readonly>
+            <button onclick="copyCryptoAddress()"><i class="fa-solid fa-copy"></i> Copy</button>
+          </div>
+
+          <!-- Deposit Form Box -->
+          <div class="deposit-form-box">
+            <div class="deposit-form">
+              <h3><i class="fa-solid fa-receipt"></i> Deposit Details</h3>
+              <form id="depositForm">
+                <label>Amount</label>
+                <input type="number" required placeholder="Enter deposit amount">
+
+                <label>Transaction ID</label>
+                <input type="text" required placeholder="Enter transaction ID">
+
+                <label>Upload Proof</label>
+                <div class="file-upload-container">
+                  <input type="file" accept="image/*" required id="fileUpload">
+                  <label for="fileUpload" class="file-upload-label">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                  </label>
+                  <span id="fileName">No file chosen</span>
+                </div>
+
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i> Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Withdraw Section -->
+      <section id="withdraw" class="tab-section" style="display: none;">
+        <div class="withdraw-container">
+          <h3 class="section-title"><i class="fa-solid fa-money-bill-wave"></i> Withdraw Funds</h3>
+
+          <div class="wallet-balance">
+            <i class="fa-solid fa-sack-dollar"></i> <strong>Wallet Balance:</strong> $150
+          </div>
+
+          <form id="withdrawForm">
+            <label for="method"><i class="fa-solid fa-credit-card"></i> Withdraw Method:</label>
+            <select id="method" required>
+              <option value="">Select Method</option>
+              <option value="bank">Bank Card</option>
+              <option value="usdt">USDT</option>
+            </select>
+
+            <label for="amount"><i class="fa-solid fa-dollar-sign"></i> Amount:</label>
+            <input type="number" id="amount" required min="1" placeholder="Enter amount">
+
+            <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
+            <input type="password" id="password" required placeholder="Enter your password">
+
+            <button type="submit"><i class="fa-solid fa-paper-plane"></i> Submit Request</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Profile Section -->
+      <section id="profile" class="tab-section" style="display: none;">
+        <div class="dashboard">
+          <!-- Profile Info Form -->
+          <div class="box profile-form">
+            <h3><i class="fa-solid fa-user-gear"></i> User Profile</h3>
+            <form>
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-id-badge"></i> Sponsor ID</label>
+                  <input type="text" value="SP12345" readonly>
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-fingerprint"></i> User ID</label>
+                  <input type="text" value="USR7890" readonly>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-user"></i> Name</label>
+                  <input type="text" placeholder="Enter your name" value="John Doe">
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-envelope"></i> Email</label>
+                  <input type="email" value="john@example.com" readonly>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-phone"></i> Phone</label>
+                  <input type="tel" value="+91-9876543210" readonly>
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-wallet"></i> Wallet</label>
+                  <input type="text" placeholder="Enter your wallet address">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label><i class="fa-solid fa-key"></i> Transaction Password</label>
+                  <input type="password" placeholder="********">
+                  <button type="button" class="password-reset-btn" onclick="togglePasswordReset()">
+                    <i class="fa-solid fa-rotate"></i> Reset Password
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Password Reset Form (Hidden Initially) -->
+            <div id="resetPasswordForm" style="display: none; margin-top: 15px;">
+              <h4><i class="fa-solid fa-lock-open"></i> Reset Transaction Password</h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-unlock"></i> Old Password</label>
+                  <input type="password">
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-lock"></i> New Password</label>
+                  <input type="password">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-check-double"></i> Confirm New Password</label>
+                  <input type="password">
+                </div>
+                <div class="form-group button-container">
+                  <button class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KYC Section -->
+          <div class="box kyc-box">
+            <h3><i class="fa-solid fa-id-card"></i> KYC Verification</h3>
+
+            <div class="kyc-image-wrapper">
+              <div class="kyc-image-box">
+                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Profile Image">
+              </div>
+            </div>
+
+            <form id="kycForm">
+              <div class="document-upload-container">
+                <div class="document-upload">
+                  <label for="aadharfront"><i class="fa-solid fa-id-card"></i> Upload Aadhaar Card front</label>
+                  <div class="file-upload-container">
+                    <input type="file" id="aadharfront">
+                    <label for="aadharfront" class="file-upload-label">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                    </label>
+                    <span class="file-name">No file chosen</span>
+                  </div>
+                </div>
+
+                <div class="document-upload">
+                  <label for="aadharback"><i class="fa-solid fa-id-card-clip"></i> Upload Aadhaar Card back</label>
+                  <div class="file-upload-container">
+                    <input type="file" id="aadharback">
+                    <label for="aadharback" class="file-upload-label">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                    </label>
+                    <span class="file-name">No file chosen</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="document-upload-container">
+                <div class="document-upload">
+                  <label for="panfront"><i class="fa-solid fa-address-card"></i> Upload PAN Card front</label>
+                  <div class="file-upload-container">
+                    <input type="file" id="panfront">
+                    <label for="panfront" class="file-upload-label">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                    </label>
+                    <span class="file-name">No file chosen</span>
+                  </div>
+                </div>
+
+                <div class="document-upload">
+                  <label for="panback"><i class="fa-solid fa-address-card"></i> Upload PAN Card back</label>
+                  <div class="file-upload-container">
+                    <input type="file" id="panback">
+                    <label for="panback" class="file-upload-label">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                    </label>
+                    <span class="file-name">No file chosen</span>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="kyc-submit-btn"><i class="fa-solid fa-paper-plane"></i> Submit KYC</button>
+            </form>
+          </div>
+
+          <!-- Bank Detail Section -->
+          <div class="box bank-details">
+            <h3><i class="fa-solid fa-building-columns"></i> Bank Details</h3>
+            <form id="bankForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-user"></i> Account Holder Name</label>
+                  <input type="text" class="bank-input" value="John Doe" readonly>
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-bank"></i> Bank Name</label>
+                  <input type="text" class="bank-input" value="XYZ Bank" readonly>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-location-dot"></i> Branch Name</label>
+                  <input type="text" class="bank-input" value="New Delhi Branch" readonly>
+                </div>
+                <div class="form-group">
+                  <label><i class="fa-solid fa-hashtag"></i> Account Number</label>
+                  <input type="text" class="bank-input" value="123456789012" readonly>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-code-branch"></i> IFSC Code</label>
+                  <input type="text" class="bank-input" value="XYZB0000123" readonly>
+                </div>
+                <div class="form-group button-container">
+                  <button type="button" class="bank-btn" onclick="toggleBankEdit()">
+                    <i class="fa-solid fa-pen-to-square"></i> Change
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section -->
+      <section id="team" class="tab-section" style="display: none;">
+        <div class="box team-details">
+          <h3><i class="fa-solid fa-users-gear"></i> Team Management</h3>
+
+          <div class="team-block">
+            <h4><i class="fa-solid fa-user-group"></i> Direct Team</h4>
+            <div class="team-row">
+              <span>Active</span>
+              <span>12</span>
+              <button class="team-btn" id="viewDirectActive"><i class="fa-solid fa-eye"></i> View</button>
+            </div>
+            <div class="team-row">
+              <span>In-active</span>
+              <span>2</span>
+              <button class="team-btn" id="viewDirectInactive"><i class="fa-solid fa-eye"></i> View</button>
+            </div>
+          </div>
+
+          <div class="team-block">
+            <h4><i class="fa-solid fa-diagram-project"></i> Growline Team</h4>
+            <div class="team-row">
+              <span>Active</span>
+              <span>24</span>
+              <button class="team-btn" id="viewGrowlineActive"><i class="fa-solid fa-eye"></i> View</button>
+            </div>
+            <div class="team-row">
+              <span>In-active</span>
+              <span>5</span>
+              <button class="team-btn" id="viewGrowlineInactive"><i class="fa-solid fa-eye"></i> View</button>
+            </div>
+          </div>
+          
+          <!-- Team Data Table (initially hidden, shown when view is clicked) -->
+          <div id="teamDataContainer" class="team-data-container" style="display: none;">
+            <div class="team-data-header">
+              <h4 id="teamDataTitle">Team Members</h4>
+              <button id="closeTeamData"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="teamDataTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Joined Date</th>
+                    <th>Email</th>
+                    <th>Side</th>
+                    <th>Earned</th>
+                    <th>Investment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Sample data - will be populated dynamically -->
+                  <tr>
+                    <td>Robert Smith</td>
+                    <td>2023-01-15</td>
+                    <td>robert@example.com</td>
+                    <td><span class="side-left">Left</span></td>
+                    <td>$2,450</td>
+                    <td>$1,000</td>
+                  </tr>
+                  <tr>
+                    <td>Alice Johnson</td>
+                    <td>2023-02-22</td>
+                    <td>alice@example.com</td>
+                    <td><span class="side-right">Right</span></td>
+                    <td>$1,785</td>
+                    <td>$800</td>
+                  </tr>
+                  <tr>
+                    <td>Michael Chen</td>
+                    <td>2023-03-10</td>
+                    <td>michael@example.com</td>
+                    <td><span class="side-left">Left</span></td>
+                    <td>$950</td>
+                    <td>$500</td>
+                  </tr>
+                  <tr>
+                    <td>Sarah Davis</td>
+                    <td>2023-04-05</td>
+                    <td>sarah@example.com</td>
+                    <td><span class="side-right">Right</span></td>
+                    <td>$1,200</td>
+                    <td>$750</td>
+                  </tr>
+                  <tr>
+                    <td>James Wilson</td>
+                    <td>2023-05-18</td>
+                    <td>james@example.com</td>
+                    <td><span class="side-left">Left</span></td>
+                    <td>$850</td>
+                    <td>$500</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Tree View Section -->
+      <section id="tree" class="tab-section" style="display: none;">
+        <div class="box tree-view-container">
+          <h3><i class="fa-solid fa-sitemap"></i> Referral Tree</h3>
+          
+          <div class="tree-controls">
+            <button id="expandAll" class="tree-control-btn"><i class="fa-solid fa-plus-square"></i> Expand All</button>
+            <button id="collapseAll" class="tree-control-btn"><i class="fa-solid fa-minus-square"></i> Collapse All</button>
+          </div>
+          
+          <div class="tree-view">
+            <!-- Root Node -->
+            <div class="tree-node root">
+              <div class="node-content">
+                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="User" class="node-avatar">
+                <div class="node-info">
+                  <div class="node-name">John Doe</div>
+                  <div class="node-id">USR7890</div>
+                </div>
+                <div class="node-expand-btn"><i class="fa-solid fa-chevron-down"></i></div>
+              </div>
+              
+              <!-- First Level -->
+              <div class="tree-children">
+                <!-- Left Branch -->
+                <div class="tree-branch left-branch">
+                  <div class="branch-label">Left</div>
+                  <div class="tree-node">
+                    <div class="node-content">
+                      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="node-avatar">
+                      <div class="node-info">
+                        <div class="node-name">Robert Smith</div>
+                        <div class="node-id">USR1234</div>
+                      </div>
+                      <div class="node-expand-btn"><i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                    
+                    <!-- Second Level Left-Left -->
+                    <div class="tree-children">
+                      <!-- Left Branch -->
+                      <div class="tree-branch left-branch">
+                        <div class="branch-label">Left</div>
+                        <div class="tree-node">
+                          <div class="node-content">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User" class="node-avatar">
+                            <div class="node-info">
+                              <div class="node-name">Emily Brown</div>
+                              <div class="node-id">USR2345</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Right Branch -->
+                      <div class="tree-branch right-branch">
+                        <div class="branch-label">Right</div>
+                        <div class="tree-node">
+                          <div class="node-content">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="node-avatar">
+                            <div class="node-info">
+                              <div class="node-name">Mike Johnson</div>
+                              <div class="node-id">USR3456</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Right Branch -->
+                <div class="tree-branch right-branch">
+                  <div class="branch-label">Right</div>
+                  <div class="tree-node">
+                    <div class="node-content">
+                      <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="node-avatar">
+                      <div class="node-info">
+                        <div class="node-name">Alice Johnson</div>
+                        <div class="node-id">USR4567</div>
+                      </div>
+                      <div class="node-expand-btn"><i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                    
+                    <!-- Second Level Right-Left -->
+                    <div class="tree-children">
+                      <!-- Left Branch -->
+                      <div class="tree-branch left-branch">
+                        <div class="branch-label">Left</div>
+                        <div class="tree-node">
+                          <div class="node-content">
+                            <img src="https://randomuser.me/api/portraits/men/29.jpg" alt="User" class="node-avatar">
+                            <div class="node-info">
+                              <div class="node-name">Thomas Lee</div>
+                              <div class="node-id">USR5678</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Right Branch -->
+                      <div class="tree-branch right-branch">
+                        <div class="branch-label">Right</div>
+                        <div class="tree-node">
+                          <div class="node-content">
+                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="User" class="node-avatar">
+                            <div class="node-info">
+                              <div class="node-name">Sarah Davis</div>
+                              <div class="node-id">USR6789</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Income Section -->
+      <section id="income" class="tab-section" style="display: none;">
+        <div class="dashboard income-dashboard">
+          <div class="box income-summary">
+            <h3><i class="fa-solid fa-money-bill-trend-up"></i> Income Summary</h3>
+            <div class="income-chart-container">
+              <canvas id="incomeChart"></canvas>
+            </div>
+            <div class="income-totals">
+              <div class="income-total-item">
+                <i class="fa-solid fa-users"></i>
+                <span class="income-label">Referral Income</span>
+                <span class="income-value">$1,250.00</span>
+              </div>
+              <div class="income-total-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span class="income-label">Investment Earnings</span>
+                <span class="income-value">$3,450.00</span>
+              </div>
+              <div class="income-total-item">
+                <i class="fa-solid fa-gift"></i>
+                <span class="income-label">Bonus Rewards</span>
+                <span class="income-value">$750.00</span>
+              </div>
+              <div class="income-total-item">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <span class="income-label">Total Earnings</span>
+                <span class="income-value">$5,450.00</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="box income-details">
+            <h3><i class="fa-solid fa-list-ul"></i> Income Breakdown</h3>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2023-06-15</td>
+                    <td>Referral</td>
+                    <td>Robert Smith</td>
+                    <td>$50.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-12</td>
+                    <td>Investment</td>
+                    <td>Daily ROI</td>
+                    <td>$25.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-10</td>
+                    <td>Level</td>
+                    <td>Level 2 Network</td>
+                    <td>$30.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-07</td>
+                    <td>Referral</td>
+                    <td>Alice Johnson</td>
+                    <td>$50.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-05</td>
+                    <td>Investment</td>
+                    <td>Daily ROI</td>
+                    <td>$25.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>2023-06-01</td>
+                    <td>Bonus</td>
+                    <td>Performance Bonus</td>
+                    <td>$100.00</td>
+                    <td><span class="status-completed">Completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="box referral-income">
+            <h3><i class="fa-solid fa-users"></i> Referral Performance</h3>
+            <div class="referral-stats">
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <div class="stat-info">
+                  <div class="stat-value">14</div>
+                  <div class="stat-label">Direct Referrals</div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="stat-info">
+                  <div class="stat-value">42</div>
+                  <div class="stat-label">Team Size</div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div class="stat-info">
+                  <div class="stat-value">$1,250</div>
+                  <div class="stat-label">Referral Income</div>
+                </div>
+              </div>
+            </div>
+            <div class="referral-chart-container">
+              <canvas id="referralChart"></canvas>
+            </div>
+          </div>
+          
+          <div class="box investment-income">
+            <h3><i class="fa-solid fa-chart-pie"></i> Investment Performance</h3>
+            <div class="investment-chart-container">
+              <canvas id="investmentChart"></canvas>
+            </div>
+            <div class="investment-stats">
+              <div class="stat-item">
+                <div class="stat-label">Initial Investment</div>
+                <div class="stat-value">$2,000</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Current Value</div>
+                <div class="stat-value">$3,450</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">ROI</div>
+                <div class="stat-value">72.5%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Support Section -->
+      <section id="support" class="tab-section" style="display: none;">
+        <div class="box support-container">
+          <h3><i class="fa-solid fa-headset"></i> Customer Support</h3>
+          
+          <div class="support-options">
+            <div class="support-option">
+              <div class="support-icon">
+                <i class="fa-solid fa-ticket"></i>
+              </div>
+              <h4>Submit a Ticket</h4>
+              <p>Create a support ticket for specific issues</p>
+              <button id="openTicketForm"><i class="fa-solid fa-plus-circle"></i> New Ticket</button>
+            </div>
+            
+            <div class="support-option">
+              <div class="support-icon">
+                <i class="fa-solid fa-comments"></i>
+              </div>
+              <h4>Live Chat</h4>
+              <p>Connect with our support team instantly</p>
+              <button id="startLiveChat"><i class="fa-solid fa-comment"></i> Start Chat</button>
+            </div>
+            
+            <div class="support-option">
+              <div class="support-icon">
+                <i class="fa-solid fa-circle-question"></i>
+              </div>
+              <h4>FAQs</h4>
+              <p>Find answers to common questions</p>
+              <button id="viewFAQs"><i class="fa-solid fa-list"></i> View FAQs</button>
+            </div>
+          </div>
+          
+          <!-- Ticket Form (initially hidden) -->
+          <div id="ticketForm" class="support-form" style="display: none;">
+            <h4><i class="fa-solid fa-ticket"></i> Create Support Ticket</h4>
+            <form>
+              <div class="form-group">
+                <label><i class="fa-solid fa-tag"></i> Subject</label>
+                <input type="text" placeholder="Enter ticket subject">
+              </div>
+              
+              <div class="form-group">
+                <label><i class="fa-solid fa-layer-group"></i> Category</label>
+                <select>
+                  <option value="">Select Category</option>
+                  <option value="account">Account Issues</option>
+                  <option value="payment">Payment Problems</option>
+                  <option value="referral">Referral Program</option>
+                  <option value="technical">Technical Support</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label><i class="fa-solid fa-circle-exclamation"></i> Priority</label>
+                <select>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label><i class="fa-solid fa-message"></i> Description</label>
+                <textarea rows="5" placeholder="Describe your issue in detail"></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label><i class="fa-solid fa-paperclip"></i> Attachments (optional)</label>
+                <div class="file-upload-container">
+                  <input type="file" id="ticketFile" multiple>
+                  <label for="ticketFile" class="file-upload-label">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Choose Files
+                  </label>
+                  <span class="file-name">No files chosen</span>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" id="cancelTicket"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i> Submit Ticket</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- My Tickets -->
+          <div class="my-tickets">
+            <h4><i class="fa-solid fa-clipboard-list"></i> My Tickets</h4>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ticket ID</th>
+                    <th>Subject</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#TIK-2023-001</td>
+                    <td>Withdrawal Issue</td>
+                    <td>Payment</td>
+                    <td>2023-06-10</td>
+                    <td><span class="status-open">Open</span></td>
+                    <td><button class="view-ticket-btn"><i class="fa-solid fa-eye"></i> View</button></td>
+                  </tr>
+                  <tr>
+                    <td>#TIK-2023-002</td>
+                    <td>Referral Not Showing</td>
+                    <td>Referral</td>
+                    <td>2023-05-28</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td><button class="view-ticket-btn"><i class="fa-solid fa-eye"></i> View</button></td>
+                  </tr>
+                  <tr>
+                    <td>#TIK-2023-003</td>
+                    <td>Login Problem</td>
+                    <td>Account</td>
+                    <td>2023-05-15</td>
+                    <td><span class="status-resolved">Resolved</span></td>
+                    <td><button class="view-ticket-btn"><i class="fa-solid fa-eye"></i> View</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <!-- Chart.js for graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+  </html>
