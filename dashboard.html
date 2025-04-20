@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEERAJ - CRM Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="styles.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -49,21 +49,10 @@
         </ul>
       </nav>
       <div class="logout">
-        <button onclick="logout()"><i class="fa-solid fa-power-off"></i> Logout</button>
+        <button><i class="fa-solid fa-power-off"></i> Logout</button>
       </div>
     </aside>
 
-    <script>
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "index.html"; // redirect to login if not logged in
-    }
-
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      window.location.href = "index.html";
-    }
-  </script>
-    
     <!-- Main Content -->
     <main>
       <!-- Header -->
@@ -85,7 +74,7 @@
             <div class="dropdown-menu" id="dropdownMenu">
               <button onclick="openTab('profile')"><i class="fa-solid fa-user"></i> My Profile</button>
               <button onclick="openTab('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
-              <button onclick="logout()" ><i class="fa-solid fa-power-off"></i> Logout</button>
+              <button id="logoutBtn"><i class="fa-solid fa-power-off"></i> Logout</button>
             </div>
           </div>
         </div>
@@ -965,6 +954,6 @@
   
   <!-- Chart.js for graphs -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dashboard.js"></script>
+  <script src="script.js"></script>
 </body>
   </html>
