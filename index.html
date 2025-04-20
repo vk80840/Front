@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth Page</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="bg">
+    <div class="auth-card bounce-in">
+      <div class="tabs">
+        <div class="tab-shape">
+          <button class="tab-btn active" onclick="showTab('signin', this)">Sign In</button>
+          <button class="tab-btn" onclick="showTab('signup', this)">Sign Up</button>
+        </div>
+      </div>
+
+      <!-- Sign In -->
+      <form id="signin" class="form-tab active">
+        <h2 class="title">Welcome Back</h2>
+        <label>Email Address</label>
+        <input type="email" id="login-email" required />
+        
+        <label>Password</label>
+        <div class="password-row">
+          <input type="password" id="login-password" required />
+          <i class="fas fa-eye toggle-pass" onclick="togglePassword('login-password', this)"></i>
+        </div>
+
+        <div class="options">
+          <label class="switch">
+            <input type="checkbox"><span class="slider"></span>
+          </label>
+          <span>Remember me</span>
+        </div>
+
+        <p id="signin-error" style="color: red;"></p>
+        <button type="submit" class="auth-btn">➤ Sign In</button>
+      </form>
+
+      <!-- Sign Up -->
+      <form id="signup" class="form-tab">
+        <h2 class="title">Create Account</h2>
+        
+        <label>Referral ID</label>
+        <input type="text" id="referralId" required />
+
+        <label>First Name</label>
+        <input type="text" id="firstName" required />
+
+        <label>Last Name</label>
+        <input type="text" id="lastName" required />
+
+        <label>Mobile Number</label>
+        <div class="mobile-input">
+          <span class="prefix">🇮🇳+91</span>
+          <input type="tel" id="mobile" pattern="[0-9]{10}" required />
+        </div>
+
+        <label>Email Address</label>
+        <input type="email" id="signup-email" required />
+
+        <label>Password</label>
+        <div class="password-row">
+          <input type="password" id="signup-password" required />
+          <i class="fas fa-eye toggle-pass" onclick="togglePassword('signup-password', this)"></i>
+        </div>
+
+        <label>Confirm Password</label>
+        <div class="password-row">
+          <input type="password" id="signup-confirm" required />
+          <i class="fas fa-eye toggle-pass" onclick="togglePassword('signup-confirm', this)"></i>
+        </div>
+
+        <label>Select Side</label>
+        <select id="side" required>
+          <option value="">Choose Side</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
+
+        <div class="options checkbox-line">
+          <input type="checkbox" id="terms" required />
+          <label for="terms">I agree to Terms & Conditions</label>
+        </div>
+
+        <p id="signup-error" style="color: red;"></p>
+        <button type="submit" class="auth-btn">➤ Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  
+</body>
+</html>
